@@ -9,8 +9,26 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap-responsive.css') }}">
 </head>
 <body>
-    <h1>Class Roulette!</h1>
-    <h2>{{ video.title }}</h2>
-    {{ video.html|safe }}
+    <div class="container">
+        <header class="row">
+            <div class="span12">
+                <h1>Class Roulette!</h1>
+            </div>
+        </header>
+        <div class="row">
+            <div id="sidebar" class="span4">
+                <div>
+                    <a class="btn btn-primary btn-large" href="/">Spin it!</a>
+                </div>
+                <h2>{{ video.title }}</h2>
+                <h3>
+                    <a href="{{ video.author_url }}">{{ video.author_name }}</a>
+                </h3>
+            </div>
+            <div id="main" class="span8">
+                <iframe width="100%" height="400" src="http://www.youtube.com/embed/{{ video.id }}" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
