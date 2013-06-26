@@ -1,4 +1,4 @@
-from fabric.api import local
+from fabric.api import local, env
 
 env.exclude_requirements = [
     'wsgiref', 'readline', 'ipython',

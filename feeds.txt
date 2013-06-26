@@ -1,2 +1,8 @@
 YaleCourses
 UCBerkeley
+MIT
+khanacademy
+minutephysics
+TheHarvardGSD
+HarvardEducation
+HarvardBSchool

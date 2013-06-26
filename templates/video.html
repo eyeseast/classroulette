@@ -10,25 +10,38 @@
 </head>
 <body>
     <div class="container">
+        
         <header class="row">
             <div class="span12">
                 <h1>Class Roulette!</h1>
+                <p>Spin the wheel. Maybe you'll learn something.</p>
             </div>
         </header>
+        
         <div class="row">
+
             <div id="sidebar" class="span4">
                 <div>
                     <a class="btn btn-primary btn-large" href="/">Spin it!</a>
                 </div>
                 <h2>{{ video.title }}</h2>
                 <h3>
-                    <a href="{{ video.author_url }}">{{ video.author_name }}</a>
+                    <a href="{{ video.author_detail.href }}">{{ video.author_detail.name }}</a>
                 </h3>
+                <div class="description">
+                    {{ video.description|safe|urlize }}
+                </div>
             </div>
+
             <div id="main" class="span8">
                 <iframe width="100%" height="400" src="http://www.youtube.com/embed/{{ video.id }}" frameborder="0" allowfullscreen></iframe>
             </div>
+
         </div>
+
+        <footer class="row">
+
+        </footer>
     </div>
 </body>
 </html>
