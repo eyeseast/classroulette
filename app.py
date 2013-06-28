@@ -2,12 +2,14 @@
 """
 The main app. This runs everything.
 """
+import os
 import urlparse
 from flask import Flask, render_template
 
 from connection import redis, key, get_video_id, get_video
 
 app = Flask(__name__)
+app.debug = bool(os.environ.get('DEBUG', False))
 
 @app.route('/')
 def index():
