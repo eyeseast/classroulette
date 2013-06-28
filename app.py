@@ -8,7 +8,6 @@ from flask import Flask, render_template
 from connection import redis, key, get_video_id, get_video
 
 app = Flask(__name__)
-app.debug = True
 
 @app.route('/')
 def index():
@@ -23,4 +22,4 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
