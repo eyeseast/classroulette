@@ -4,12 +4,18 @@ The main app. This runs everything.
 """
 import os
 import urlparse
+
 from flask import Flask, render_template
+from flaskext.markdown import Markdown
 
 from connection import redis, key, get_video_id, get_video
 
+# the app itself
 app = Flask(__name__)
 app.debug = bool(os.environ.get('DEBUG', False))
+
+# addons
+Markdown(app)
 
 @app.route('/')
 def index():
