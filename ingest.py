@@ -5,12 +5,11 @@ Pull in YouTube videos from a list of feeds and store them in redis.
 import feedparser
 import logging
 
-from connection import redis, key, get_video_id
-
-URL = "http://gdata.youtube.com/feeds/base/users/%(user)s/uploads?" \
-      "alt=rss&v=2&orderby=published&client=ytapi-youtube-profile"
+from connection import redis, key
+from youtube import get_video_id, get_feed_url
 
 log = logging.getLogger(__file__)
+ 
 
 def update():
     """
@@ -20,7 +19,7 @@ def update():
         feeds = [line.strip() for line in f]
 
     for user in feeds:
-        url = URL % {'user': user}
+        url = get_feed_url(user)
         feed = feedparser.parse(url)
 
         for video in feed.entries:
@@ -33,9 +32,11 @@ def update():
             uid = '%s:%s' % (user, vid)
 
             # save the uid to our redis set
-            redis.sadd(key(), uid)
+            # printing the video title if it's added to the set
+            if redis.sadd(key(), uid):
+                print video.title
 
-            print video.title
+    print "Total videos: %i" % redis.scard(key())
 
 
 if __name__ == '__main__':

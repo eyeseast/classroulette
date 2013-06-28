@@ -8,7 +8,8 @@ import urlparse
 from flask import Flask, render_template, redirect, url_for
 from flaskext.markdown import Markdown
 
-from connection import redis, key, get_video_id, get_video
+from connection import redis, key
+from youtube import get_video_id, get_video
 
 # the app itself
 app = Flask(__name__)
