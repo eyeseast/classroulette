@@ -5,29 +5,32 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap-responsive.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='cyborg.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap-responsive.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
         
         <header class="row">
-            <div class="span12">
+            <div class="span6">
                 <h1>Class Roulette!</h1>
-                <p>Spin the wheel. Maybe you'll learn something.</p>
+            </div>
+            <div class="span6">
+                <h4 class="pull-right">Spin the wheel. Maybe you'll learn something.</h4>
             </div>
         </header>
         
-        <div class="row">
+        <div class="row" id="main">
 
             <div id="sidebar" class="span4">
                 <div>
-                    <a class="btn btn-primary btn-large" href="/">Spin it!</a>
+                    <a class="btn btn-primary btn-large" href="/">Teach me something else.</a>
                 </div>
-                <h2>{{ video.title }}</h2>
-                <h3>
+                <h3>{{ video.title }}</h3>
+                <h4>
                     <a href="{{ video.author_detail.href }}">{{ video.author_detail.name }}</a>
-                </h3>
+                </h4>
                 <div class="description">
                     {{ video.description|safe|urlize|markdown }}
                 </div>
@@ -40,7 +43,9 @@
         </div>
 
         <footer class="row">
-
+        <div class="span12">
+            <p class="pull-right">Built with <a href="http://flask.pocoo.org/">Flask</a>, <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> and <a href="http://youtube.com">YouTube</a>.</p>
+        </div>
         </footer>
     </div>
 </body>

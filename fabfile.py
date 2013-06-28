@@ -5,6 +5,13 @@ env.exclude_requirements = [
     'git-remote-helpers',
 ]
 
+def deploy():
+    """
+    Push to origin and heroku
+    """
+    local('git push origin master')
+    local('git push heroku master')
+
 def freeze():
     """
     pip freeze > requirements.txt, excluding virtualenv clutter
