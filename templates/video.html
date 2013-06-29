@@ -24,11 +24,14 @@
 
     </div>
 
-    <div class="span4">
+    <div class="span4" id="info">
         <h3>{{ video.title }}</h3>
         <h4>
             <a href="{{ video.author_detail.href }}">{{ video.author_detail.name }}</a>
         </h4>
+        <p>
+            {% if video.duration %}Duration: <strong>{{ video.duration }}</strong>{% endif %}
+        </p>
         <div class="description">
             {{ video.description|safe|urlize|markdown }}
         </div>

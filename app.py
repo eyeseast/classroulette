@@ -2,6 +2,7 @@
 """
 The main app. This runs everything.
 """
+import datetime
 import os
 import urlparse
 
@@ -53,6 +54,10 @@ def video(user, id):
     """
     video = get_video(user, id)
     video.id = get_video_id(video.link)
+
+    if getattr(video, 'yt_duration'):
+        video.duration = datetime.timedelta(
+            seconds=int(video.yt_duration.get('seconds', 0)))
 
     return render_template('video.html', video=video)
 
