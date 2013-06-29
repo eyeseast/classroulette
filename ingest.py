@@ -10,6 +10,8 @@ import feedparser
 from connection import redis, key
 from youtube import get_video_id, get_feed_url
 
+# hard-coding this for now
+# should be able to change this for a different sort of roulette
 FEEDS_URL = "https://docs.google.com/spreadsheet/pub?" \
     "key=0AprNP7zjIYS1dDFwS3BCRExNVERzVkpVVENacXd1ekE&single=true&gid=0&output=csv"
 
@@ -19,9 +21,6 @@ def update():
     Do the update. Feeds can be for a YouTube user,
     or for a specific feed, like a playlist.
     """
-    with open('./feeds.txt') as f:
-        feeds = [line.strip() for line in f]
-
     resp = urllib2.urlopen(FEEDS_URL)
     reader = csv.DictReader(resp)
 
