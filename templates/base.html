@@ -19,6 +19,13 @@
     <meta property="og:image" content="{{ thumb.url }}">
     {% endfor %}
     {% endblock opengraph %}
+
+    {% block twittercard %}
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:title" content="Class Roulette! - {{ video.title }}">
+    <meta property="twitter:description" content="{{ video.description }}">
+    <meta property="twitter:image" content="{{ video.media_thumbnail[0].url }}">
+    {% endblock twittercard %}
 </head>
 <body>
     <div class="container">
