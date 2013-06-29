@@ -22,8 +22,22 @@ Markdown(app)
 def index():
     """
     Show a random video, pulled from our redis set.
+
+    For stats, increment each video in a sorted set.
+    By doing this here, we're checking the randomness
+    of videos returned from redis, not the popularity
+    of shared videos.
     """
-    user, id = redis.srandmember(key()).split(':')
+    # get a random video
+    uid = redis.srandmember(key())
+    user, id = uid.split(':')
+
+    # store stats
+    with redis.pipeline() as pipe:
+        pipe.zincrby(key('stats'), uid, 1)
+        pipe.zincrby(key('stats:users'), user, 1)
+
+    # send us along
     return redirect(url_for('video', user=user, id=id))
 
 #@app.route('/<user>')
