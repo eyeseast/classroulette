@@ -8,9 +8,9 @@ import feedparser
 
 def get_feed_url(user):
     """
-    Get a feed URL for a user.
+    Get a feed URL for a user. Specify the v2 API.
     """
-    URL = "http://gdata.youtube.com/feeds/base/users/%(user)s/uploads?order_by=published"
+    URL = "http://gdata.youtube.com/feeds/base/users/%(user)s/uploads?v=2"
     return URL % {'user': user}
 
 

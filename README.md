@@ -14,9 +14,6 @@ Pull in an RSS feed of videos. Store the user:video_id pairs for each video URL 
 TODO:
 -----
 
- - make colors less Microsofty
- - improve mobile layout; video should be above description.
- - rewrite loader to use spreadsheet and accept arbitrary feeds
  - buy a domain
  - analytics
  - ads
