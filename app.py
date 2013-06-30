@@ -6,11 +6,16 @@ import datetime
 import os
 import urlparse
 
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, redirect, render_template, request, url_for
 from flaskext.markdown import Markdown
 
 from connection import redis, key
 from youtube import get_video_id, get_video
+
+# constants
+REDIRECT_HOSTS = {
+    'class-roulette.herokuapp.com': 'www.classroulette.co'
+}
 
 # the app itself
 app = Flask(__name__)
@@ -18,6 +23,21 @@ app.debug = bool(os.environ.get('DEBUG', False))
 
 # addons
 Markdown(app)
+
+# middleware
+
+@app.before_request
+def redirect_host():
+    """
+    Redirect hosts if necessary. Useful for Heroku.
+    """
+    host = request.host
+    if host in REDIRECT_HOSTS:
+        url = request.url
+        dest = REDIRECT_HOSTS[host]
+        dest = url.replace(host, dest)
+
+        return redirect(dest, 301)
 
 @app.route('/')
 def index():
