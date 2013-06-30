@@ -39,10 +39,9 @@ def redirect_host():
 
         return redirect(dest, 301)
 
-@app.route('/')
-def index():
+def get_random_video():
     """
-    Show a random video, pulled from our redis set.
+    Get a random video, pulled from our redis set.
 
     For stats, increment each video in a sorted set.
     By doing this here, we're checking the randomness
@@ -59,7 +58,15 @@ def index():
         pipe.zincrby(key('stats:users'), user, 1)
 
     # send us along
-    return redirect(url_for('video', user=user, id=id))
+    return url_for('video', user=user, id=id)
+
+@app.route('/')
+def index():
+    """
+    Redirect to a random video.
+    """
+    url = get_random_video()
+    return redirect(url)
 
 #@app.route('/<user>')
 def channel(user):
@@ -79,7 +86,8 @@ def video(user, id):
         video.duration = datetime.timedelta(
             seconds=int(video.yt_duration.get('seconds', 0)))
 
-    return render_template('video.html', video=video)
+    next = get_random_video()
+    return render_template('video.html', video=video, next=next)
 
 
 if __name__ == '__main__':
