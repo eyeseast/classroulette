@@ -5,9 +5,9 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='simplex.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/simplex.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap-responsive.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     {% include "analytics.html" %}
 
     {% block opengraph %}
@@ -47,5 +47,6 @@
             </div>
         </footer>
     </div>
+    {% block footer_js %}{% endblock footer_js %}
 </body>
 </html>
