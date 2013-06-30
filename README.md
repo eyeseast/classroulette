@@ -15,9 +15,7 @@ Videos should be shown randomly. To test this, each video returned is logged in 
 TODO:
 -----
 
- - video stats (display)
- - FB meta
- - Twitter card
  - share buttons
+ - video stats (display)
  - responsive ads
  - channels?
