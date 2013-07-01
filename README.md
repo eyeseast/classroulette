@@ -15,10 +15,7 @@ Videos should be shown randomly. To test this, each video returned is logged in 
 TODO:
 -----
 
- - responsive ads
- - share buttons
- - heroku redirect
  - video stats (display)
  - channels?
  - Twitter account?
- 
+ - responsive ads (tablet) 

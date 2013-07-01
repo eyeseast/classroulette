@@ -56,6 +56,7 @@ def get_random_video():
     with redis.pipeline() as pipe:
         pipe.zincrby(key('stats'), uid, 1)
         pipe.zincrby(key('stats:users'), user, 1)
+        pipe.execute()
 
     # send us along
     return url_for('video', user=user, id=id)
