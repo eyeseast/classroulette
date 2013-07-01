@@ -4,7 +4,7 @@
 <div class="row" id="main">
 
     <div id="button" class="span4">
-        <a class="btn btn-primary btn-large" href="/">Teach me something else.</a>
+        <a class="btn btn-primary btn-large" href="{{ next }}">Teach me something else.</a>
     </div>
 
     <div id="main" class="span8 pull-right">
@@ -12,6 +12,8 @@
         <p><iframe width="100%" height="400" src="http://www.youtube.com/embed/{{ video.id }}" frameborder="0" allowfullscreen></iframe></p>
 
         <div id="ad1">
+            <script src="{{ url_for('static', filename='js/ads.js') }}"></script>
+            <script src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
             {#
             <ins class="adsbygoogle"
                  style="display:inline-block;width:728px;height:90px"
@@ -40,6 +42,14 @@
         <p>
             {% if video.duration %}Duration: <strong>{{ video.duration }}</strong>{% endif %}
         </p>
+        <div class="sharing">
+            <div class="fb-like" data-href="{{ request.url }}" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true"></div>
+
+            <a href="https://twitter.com/share" 
+               data-url="{{ request.url }}"
+               class="twitter-share-button">Tweet</a>
+
+        </div>
         <div class="description">
             {{ video.description|safe|urlize|markdown }}
         </div>
@@ -49,6 +59,6 @@
 {% endblock content %}
 
 {% block footer_js %}
-<script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script async src="{{ url_for('static', filename='js/ads.js') }}"></script>
+{# <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> #}
+
 {% endblock footer_js %}

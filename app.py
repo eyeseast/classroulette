@@ -6,11 +6,16 @@ import datetime
 import os
 import urlparse
 
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, redirect, render_template, request, url_for
 from flaskext.markdown import Markdown
 
 from connection import redis, key
 from youtube import get_video_id, get_video
+
+# constants
+REDIRECT_HOSTS = {
+    'class-roulette.herokuapp.com': 'www.classroulette.co'
+}
 
 # the app itself
 app = Flask(__name__)
@@ -19,10 +24,24 @@ app.debug = bool(os.environ.get('DEBUG', False))
 # addons
 Markdown(app)
 
-@app.route('/')
-def index():
+# middleware
+
+@app.before_request
+def redirect_host():
     """
-    Show a random video, pulled from our redis set.
+    Redirect hosts if necessary. Useful for Heroku.
+    """
+    host = request.host
+    if host in REDIRECT_HOSTS:
+        url = request.url
+        dest = REDIRECT_HOSTS[host]
+        dest = url.replace(host, dest)
+
+        return redirect(dest, 301)
+
+def get_random_video():
+    """
+    Get a random video, pulled from our redis set.
 
     For stats, increment each video in a sorted set.
     By doing this here, we're checking the randomness
@@ -39,7 +58,15 @@ def index():
         pipe.zincrby(key('stats:users'), user, 1)
 
     # send us along
-    return redirect(url_for('video', user=user, id=id))
+    return url_for('video', user=user, id=id)
+
+@app.route('/')
+def index():
+    """
+    Redirect to a random video.
+    """
+    url = get_random_video()
+    return redirect(url)
 
 #@app.route('/<user>')
 def channel(user):
@@ -59,7 +86,8 @@ def video(user, id):
         video.duration = datetime.timedelta(
             seconds=int(video.yt_duration.get('seconds', 0)))
 
-    return render_template('video.html', video=video)
+    next = get_random_video()
+    return render_template('video.html', video=video, next=next)
 
 
 if __name__ == '__main__':

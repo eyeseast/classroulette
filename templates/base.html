@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/simplex.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap-responsive.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
-    {% include "analytics.html" %}
 
     {% block opengraph %}
     <meta property="og:site_name" content="Class Roulette!">
@@ -28,6 +27,8 @@
     {% endblock twittercard %}
 </head>
 <body>
+    {% include "analytics.html" %}
+    {% include "sharing.html" %}
     <div class="container">
         
         <header class="row">
