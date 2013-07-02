@@ -15,6 +15,7 @@ Videos should be shown randomly. To test this, each video returned is logged in 
 TODO:
 -----
 
+ - ingest YouTube EDU
  - video stats (display)
  - channels?
  - Twitter account?
