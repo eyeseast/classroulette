@@ -80,7 +80,7 @@ def video(user, id):
     """
     Show a video.
     """
-    video = get_video(user, id)
+    video = get_video(id)
     video.id = get_video_id(video.link)
 
     if getattr(video, 'yt_duration'):

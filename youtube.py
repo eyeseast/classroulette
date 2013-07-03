@@ -19,14 +19,11 @@ def get_feed_url(user):
     return URL % {'user': user}
 
 
-def get_video(user, vid):
+def get_video(vid):
     """
     Fetch video details from the YouTube v2 API.
     """
-    url = "https://gdata.youtube.com/feeds/api/users/%(user)s/uploads/%(vid)s" % {
-        'user': user,
-        'vid': vid
-    }
+    url = "https://gdata.youtube.com/feeds/api/videos/%s?v=2" % vid
 
     video = feedparser.parse(url)
     if video.entries:
