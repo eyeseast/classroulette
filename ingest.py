@@ -5,6 +5,7 @@ Pull in YouTube videos from a list of feeds and store them in redis.
 from gevent import monkey
 monkey.patch_all()
 
+import argparse
 import csv
 import logging
 import urllib
@@ -57,6 +58,7 @@ def update():
     Do the update. Feeds can be for a YouTube user,
     or for a specific feed, like a playlist.
     """
+    print "Updating feeds..."
     resp = urllib2.urlopen(FEEDS_URL)
     reader = csv.DictReader(resp)
 
@@ -89,10 +91,19 @@ def store_video(video):
     # save the uid to our redis set
     # printing the video title if it's added to the set
     if redis.sadd(key(), uid):
-        log.debug(video.title)
+        log.info(video.title)
 
+# arg parsing
+parser = argparse.ArgumentParser()
+parser.add_argument('source', default='feeds', nargs='?')
+parser.add_argument('-l', '--log-level', dest='loglevel', default='INFO')
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
-    # update()
-    ingest_edu()
+    args = parser.parse_args()
+    level = getattr(logging, args.loglevel.upper())
+    logging.basicConfig(level=level)
+
+    if args.source == "edu":
+        ingest_edu()
+    else:
+        update()
